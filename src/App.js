@@ -1,28 +1,23 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Egg from './components/egg/Egg';
+import Milk from './components/milk/Milk';
+import { Route, BrowserRouter as Router, Link } from 'react-router-dom';
 
-class App extends Component {
+export default class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Router>
+        <div className="btns" align="center">
+          <Link to="/egg"><button className="btn btn-outline-success egg" type="button">Яйца</button></Link>
+          <Link to="/milk"><button className="btn btn-outline-success milk" type="button">Молоко</button></Link>
+        </div>
+
+        <div className="imgs">
+          <Route exact path="/egg" component={Egg} />
+          <Route path="/milk" component={Milk} />
+        </div>
+      </Router>
     );
   }
 }
-
-export default App;
