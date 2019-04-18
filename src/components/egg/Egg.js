@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import './Egg.css';
-import { observable } from 'mobx';
+import { observer } from 'mobx';
+import dataStore from '../../dataStore';
 
 export default class Egg extends Component {
 
   constructor() {
     super();
-    this.state = {
-      position: 0
-    }
+    
   }
 
   render() {
@@ -40,16 +39,13 @@ export default class Egg extends Component {
       elEgg.style.left = this.getIndex();
       switch (this.direction) {
         case this.Directions.right: {
-          this.setState({
-            position: this.state.position + 15
-          });
+          dataStore.changePosition(15);
+          
           this.checkIfPositionAchieveMax();
           break;
         }
         case this.Directions.left: {
-          this.setState({
-            position: this.state.position - 15
-          });
+          dataStore.changePosition(-15);
           this.checkIfPositionAchieveMin();
           break;
         }
@@ -59,24 +55,25 @@ export default class Egg extends Component {
   }
 
   checkIfPositionAchieveMax = () => {
-    if (Math.abs(this.max - this.state.position) < 5) {
+    if (Math.abs(this.max - dataStore.position) < 5) {
       this.direction = this.Directions.left;
     }
   }
 
   checkIfPositionAchieveMin = () => {
-    if (Math.abs(this.state.position) < 5) {
+    if (Math.abs(dataStore.position) < 5) {
       this.direction = this.Directions.right;
     }
   }
 
   getIndex = () => {
-    return this.state.position + 'px';
+    return dataStore.position + 'px';
   }
 
   stopEgg = () => {
-    //this.startMilk();
+    dataStore.changeEggStopped();
     clearInterval(this.intervalForEgg);
+    
   }
 
 }

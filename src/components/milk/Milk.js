@@ -1,50 +1,66 @@
 import React, { Component } from 'react';
 import './Milk.css';
+import Egg from '../egg/Egg';
+import { observable, computed, autorun } from 'mobx';
+import { observer } from 'mobx-react';
+import dataStore from '../../dataStore';
 
+@observer
 export default class Milk extends Component {
-
   intervalForMilk;
+
   constructor() {
     super();
-    this.state = {
-      opacity: 1
-    }
-  }
-
-  render() {
-    return (
-      <div align="center">
-        <img id="imageMilk" src="https://besplatka.ua/aws/10/37/67/82/app/flyaga-alyuminievaya-40l-photo-d600.png" />
-
-      </div>
-    );
   }
 
   componentDidMount() {
-    this.startMilk()
+    if (dataStore.eggStopped) {
+      this.startMilk();
+    }
   }
 
-  startMilk() {
-    let elMilk = document.getElementById('imageMilk');
+  getOpacity = () => {
+    return this.current;
+  }
 
+  startMilk = () => {
+    let elMilk = document.getElementById('imageMilk');
+    console.log(dataStore.opacity);
+    elMilk.style.opacity = dataStore.opacity;
+    dataStore.opacityChanging = false;
     this.intervalForMilk = setInterval(() => {
-      elMilk.style.opacity = this.state.opacity;
-      if (this.state.opacity > 0) {
-        this.setState({
-          opacity: this.state.opacity - 0.01
-        })
+
+      elMilk.style.opacity = dataStore.opacity;
+      //console.log(dataStore.opacity);
+      if (dataStore.opacity > 0) {
+
+        dataStore.changeOpacity();
       }
-      if (this.state.opacity === 0.009999999999999247) {
+      if (dataStore.opacity === 0.009999999999999247) {
         alert("GAME OVER")
+        dataStore.opacity = 1;
       }
     }, 50)
   }
 
-  stopMilk() {
-    //this.startEgg();
+  stopMilk = () => {
+    dataStore.isEggStopped = false;
     clearInterval(this.intervalForMilk);
     this.current = 1;
   }
-  
+
+  render() {
+    const eggStopped = dataStore.eggStopped;
+    console.log(dataStore.eggStopped);
+    return (
+      <div>
+        <div align="center">
+          <img onClick={this.stopMilk} id="imageMilk" src="https://besplatka.ua/aws/10/37/67/82/app/flyaga-alyuminievaya-40l-photo-d600.png" />
+
+        </div>
+      </div>
+    );
+  }
+
 }
 
