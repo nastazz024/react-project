@@ -4,12 +4,12 @@ import { observer } from 'mobx';
 import dataStore from '../../dataStore';
 
 export default class Egg extends Component {
-
-  constructor() {
-    super();
-    
+  
+  constructor(props) {
+    super(props);
   }
 
+  
   render() {
     return (
       <div >
@@ -27,7 +27,6 @@ export default class Egg extends Component {
     right: 'right'
   }
 
-  //@observable positionChanged;
   opacityChanged;
   direction = this.Directions.right;
   max = 1710;
@@ -40,7 +39,7 @@ export default class Egg extends Component {
       switch (this.direction) {
         case this.Directions.right: {
           dataStore.changePosition(15);
-          
+
           this.checkIfPositionAchieveMax();
           break;
         }
@@ -50,7 +49,6 @@ export default class Egg extends Component {
           break;
         }
       }
-      this.positionChanged = this.position;
     }, 25)
   }
 
@@ -71,9 +69,9 @@ export default class Egg extends Component {
   }
 
   stopEgg = () => {
-    dataStore.changeEggStopped();
+    let y = dataStore.changeEggStopped();
     clearInterval(this.intervalForEgg);
-    
+    console.log(y);
   }
 
 }

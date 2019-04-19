@@ -19,21 +19,13 @@ export default class Milk extends Component {
     }
   }
 
-  getOpacity = () => {
-    return this.current;
-  }
-
   startMilk = () => {
     let elMilk = document.getElementById('imageMilk');
-    console.log(dataStore.opacity);
     elMilk.style.opacity = dataStore.opacity;
     dataStore.opacityChanging = false;
     this.intervalForMilk = setInterval(() => {
-
       elMilk.style.opacity = dataStore.opacity;
-      //console.log(dataStore.opacity);
       if (dataStore.opacity > 0) {
-
         dataStore.changeOpacity();
       }
       if (dataStore.opacity === 0.009999999999999247) {
@@ -46,12 +38,10 @@ export default class Milk extends Component {
   stopMilk = () => {
     dataStore.isEggStopped = false;
     clearInterval(this.intervalForMilk);
-    this.current = 1;
   }
 
   render() {
     const eggStopped = dataStore.eggStopped;
-    console.log(dataStore.eggStopped);
     return (
       <div>
         <div align="center">

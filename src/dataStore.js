@@ -1,18 +1,10 @@
 import {observable, computed, action, autorun} from 'mobx';
 
-
-
 class DataStore {
-    @observable position;
-    @observable opacity;
+    @observable position = 0;
+    @observable opacity = 1;
     @observable isEggStopped = false;
     opacityChanging = true;
-
-    constructor() {
-        this.position = 0;
-        this.opacity = 1;
-        //autorun(() => this.changeOpacity);
-      }
 
     @action changePosition = (value) => {
         this.position += value;
@@ -59,8 +51,6 @@ class DataStore {
  
 }
 
-//export default new DataStore();
 const dataStore = new DataStore();
-
 export default dataStore;
 export { DataStore };
