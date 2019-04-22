@@ -14,8 +14,8 @@ export default class App extends Component {
       <Router>
         <div>
           <div className="btns" align="center">
-            <Link to="/egg"><button className="btn btn-outline-success egg" type="button">Яйца</button></Link>
-            <Link to="/milk"><button className={dataStore.eggStopped ? 'pulse btn btn-outline-success milk' : 'btn btn-outline-success milk'}  type="button">Молоко</button></Link>
+            <Link to="/egg"><button className={dataStore.opacityChanging === false && dataStore.isEggStopped === false ? 'pulse btn btn-outline-success egg' : 'btn btn-outline-success egg'} type="button">Яйца</button></Link>
+            <Link to="/milk"><button className={dataStore.isEggStopped && dataStore.changeEggStopped ? 'pulse btn btn-outline-success milk' : 'btn btn-outline-success milk'} type="button">Молоко</button></Link>
           </div>
 
           <div className="imgs">

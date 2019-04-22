@@ -5,8 +5,8 @@ import dataStore from '../../dataStore';
 
 export default class Egg extends Component {
   
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
   }
 
   
@@ -69,9 +69,8 @@ export default class Egg extends Component {
   }
 
   stopEgg = () => {
-    let y = dataStore.changeEggStopped();
+    dataStore.changeEggStopped();
     clearInterval(this.intervalForEgg);
-    console.log(y);
   }
 
 }
